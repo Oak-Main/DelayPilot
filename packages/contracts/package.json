@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Shared Zod schemas and inferred types — the single source of truth for every shape that crosses a package, route, or component boundary.",
+  "description": "Shared Zod schemas and inferred types \u2014 the single source of truth for every shape that crosses a package, route, or component boundary.",
   "exports": {
     ".": "./src/index.ts"
   },
@@ -12,5 +12,8 @@
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint ."
+  },
+  "dependencies": {
+    "zod": "4.4.3"
   }
 }

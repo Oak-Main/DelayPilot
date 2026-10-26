@@ -105,9 +105,17 @@ importers:
 
   packages/connection-engine: {}
 
-  packages/contracts: {}
+  packages/contracts:
+    dependencies:
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
 
-  packages/domain: {}
+  packages/domain:
+    dependencies:
+      '@delaypilot/contracts':
+        specifier: workspace:*
+        version: link:../contracts
 
   packages/notifications: {}
 
@@ -121,6 +129,12 @@ importers:
 
   packages/ui:
     dependencies:
+      '@delaypilot/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@delaypilot/domain':
+        specifier: workspace:*
+        version: link:../domain
       react:
         specifier: 19.3.0
         version: 19.3.0
