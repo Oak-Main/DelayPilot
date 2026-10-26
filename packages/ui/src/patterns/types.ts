@@ -1,31 +1,11 @@
-/**
- * INTERIM VIEW-MODEL TYPES for the composed patterns — to be replaced by `packages/contracts`.
- *
- * `packages/contracts` is Phase 2 work owned by `principal-architect` and does not exist yet, but
- * the patterns in this directory have to name a segment, a transfer component, a rights line and a
- * risk band at the type level today. `AGENTS.md §5.1` forbids inventing a parallel shape for an
- * upstream contract, so — following the precedent already set by
- * `packages/ui/src/tokens/interim-contracts.ts` — these are declared as narrowly as possible,
- * consumed only by this directory and by `apps/web/src/demo`, and marked for deletion.
- *
- * HANDOFF FILED: `to: principal-architect` — publish `Segment`, `Snapshot`, `Provenance`,
- * `ConnectionAssessment`, `TransferComponent`, `RightsAssessment`, `ActionItem` and `AlertEvent`
- * from `packages/contracts` in Phase 2. When they land, delete this file and re-point
- * `packages/ui/src/patterns/**` at the contract. Nothing here is re-exported as the public API of a
- * second package in the meantime.
- *
- * The vocabulary is not invented either: the five rights statuses are `AGENTS.md §1.3`, the six
- * provenance kinds are `AGENTS.md §1.2`, the five result bands are `DIRECTIVE.md §27`, and the
- * transfer components and derivation classes are the `.claude/agents/frontend-ui-engineer.md`
- * connection-cockpit contract (`T = T_deplane + T_walk + T_security + T_immigration + T_bag +
- * T_mobility + T_uncertainty`, each with its derivation class).
+import type { Maybe, Provenance, UnknownValue, ZonedTime } from '@delaypilot/contracts'
+export { known, unknown } from '@delaypilot/contracts'
+export type { Maybe, Provenance, ZonedTime } from '@delaypilot/contracts'
+/** Interim pattern types. Common Maybe, Provenance and ZonedTime primitives now come from
+ * @delaypilot/contracts. Segment and assessment migration remain future Phase 2 work;
+ * this slice does not introduce a competing Segment model.
  */
-
-import type {
-  InterimProvenanceKind,
-  InterimSeverity,
-  InterimStatusTone,
-} from '../tokens/interim-contracts.ts'
+import type { InterimSeverity, InterimStatusTone } from '../tokens/interim-contracts.ts'
 
 /* ------------------------------------------------------------------------------------------- */
 /* Unknown as a first-class value.                                                              */
@@ -39,44 +19,13 @@ import type {
  * designed UI state, never a blank or a zero." A bare `T | null` lets a caller render a dash; this
  * shape makes the reason a required field, so the renderer always has a sentence to print.
  */
-export type Maybe<T> = { readonly known: true; readonly value: T } | InterimUnknown
-
-export interface InterimUnknown {
-  readonly known: false
-  /** A named-fact sentence, e.g. "The gate has not been published." Copy, so the caller supplies it. */
-  readonly reason: string
-}
-
-export const known = <T>(value: T): Maybe<T> => ({ known: true, value })
-export const unknown = (reason: string): InterimUnknown => ({ known: false, reason })
+export type InterimUnknown = UnknownValue
 
 /* ------------------------------------------------------------------------------------------- */
 /* Provenance.                                                                                  */
 /* ------------------------------------------------------------------------------------------- */
 
 /** Provenance as it reaches a component: the §1.2 kind plus the freshness sentence to print. */
-export interface Provenance {
-  readonly kind: InterimProvenanceKind
-  /** "Updated 6 minutes ago from [source]" — composed by the caller, never by a component. */
-  readonly freshness?: string
-  /**
-   * The values behind this panel came from a fixture, WHATEVER label the chip carries.
-   *
-   * `kind` answers one question — how fresh, how trustworthy — and `docs/VOICE.md §2.1` rules that
-   * the `§28` sentence turns on a different one: origin. A panel illustrating the `§17` stale state
-   * over fixture data chooses `Stale` to say the response aged, which affirmatively asserts that a
-   * provider answered; the chip can only carry one of the six words, so the caption is the only
-   * thing left that can say there was no provider at all. `/flight-status/`'s stale card shipped
-   * with no sentence anywhere in it for exactly that reason (trust F12 / copy F-21).
-   *
-   * So the flag is on the DATA, beside the kind, not on any copy prop: the fixture declares itself
-   * once and every pattern reads the same field. `isFixtureSourced` below is the only test any
-   * pattern performs; a live provenance omits the flag and nothing changes for it.
-   *
-   * Typed `true` rather than `boolean`: `fixture: false` would be a second way to spell absence.
-   */
-  readonly fixture?: true
-}
 
 /**
  * Does this datum come from a fixture — by its chip word, or by its own declaration?
@@ -93,21 +42,7 @@ export const isFixtureSourced = (provenance: Provenance): boolean =>
 /* Time.                                                                                        */
 /* ------------------------------------------------------------------------------------------- */
 
-/**
- * One displayed instant.
- *
- * `AGENTS.md §3.3`: instants are UTC, zones are IANA identifiers held separately, and every
- * displayed time is labelled with airport code and zone. All four fields are required so a time
- * cannot reach a screen without its label.
- */
-export interface ZonedTime {
-  /** UTC instant, ISO 8601 with a `Z` offset. */
-  readonly instant: string
-  /** IANA time-zone identifier of the airport, e.g. `America/New_York`. Never a numeric offset. */
-  readonly zone: string
-  /** Airport code the time belongs to, e.g. `DM2`. */
-  readonly airport: string
-}
+/** ZonedTime is re-exported from @delaypilot/contracts above. */
 
 /* ------------------------------------------------------------------------------------------- */
 /* Bands.                                                                                       */

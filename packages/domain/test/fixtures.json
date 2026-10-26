@@ -1,0 +1,71 @@
+{
+  "notice": "Demo data \u2014 not a live flight. Synthetic acceptance vectors only; no production policy or provider authorization.",
+  "identity": {
+    "marketingCarrier": "SYN",
+    "operatingCarrier": "SYN-OP",
+    "flightNumber": "001",
+    "providerNamespace": "synthetic",
+    "providerCanonicalId": "fixture-A",
+    "origin": "DM1",
+    "destination": "DM2",
+    "originLocalServiceDate": "2026-03-14"
+  },
+  "observation": {
+    "sourceId": "synthetic-source",
+    "observedAt": "2026-03-14T15:00:00Z",
+    "providerGeneratedAt": "2026-03-14T14:59:00Z"
+  },
+  "evaluationInstant": "2026-03-14T15:01:00Z",
+  "policy": {
+    "freshForSeconds": 60,
+    "halfLifeSeconds": 60,
+    "displayForSeconds": 600,
+    "permitsFreshResponse": true,
+    "permitsCache": true,
+    "permitsStaleDisplay": true
+  },
+  "time": {
+    "crossing": {
+      "instant": "2026-03-14T15:20:00Z",
+      "zones": ["America/Los_Angeles", "America/New_York"],
+      "expectedClocks": ["08:20", "11:20"]
+    },
+    "overnight": {
+      "from": {
+        "instant": "2026-03-14T23:55:00Z",
+        "zone": "America/New_York"
+      },
+      "to": {
+        "instant": "2026-03-15T07:30:00Z",
+        "zone": "Europe/Amsterdam"
+      },
+      "expectedDates": ["2026-03-14", "2026-03-15"],
+      "expectedElapsedMinutes": 455
+    },
+    "dateLine": {
+      "from": {
+        "instant": "2026-06-09T12:30:00Z",
+        "zone": "Pacific/Auckland"
+      },
+      "to": {
+        "instant": "2026-06-10T01:00:00Z",
+        "zone": "America/Los_Angeles"
+      },
+      "expectedDates": ["2026-06-10", "2026-06-09"],
+      "expectedElapsedMinutes": 750
+    },
+    "gap": {
+      "from": "2026-03-08T09:59:00Z",
+      "to": "2026-03-08T10:00:00Z",
+      "zone": "America/Los_Angeles",
+      "expectedClocks": ["01:59", "03:00"]
+    },
+    "fold": {
+      "from": "2026-11-01T08:30:00Z",
+      "to": "2026-11-01T09:30:00Z",
+      "zone": "America/Los_Angeles",
+      "expectedClocks": ["01:30", "01:30"],
+      "expectedZoneNames": ["Pacific Daylight Time", "Pacific Standard Time"]
+    }
+  }
+}

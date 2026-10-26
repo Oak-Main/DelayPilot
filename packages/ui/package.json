@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "@delaypilot/contracts": "workspace:*",
+    "@delaypilot/domain": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "19.3.0",
