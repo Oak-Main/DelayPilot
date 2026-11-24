@@ -28,9 +28,9 @@
 #   3. apps/web/public/sitemap.xml — a page that is indexable by (2) must be listed; a page that is
 #      not must not be.
 # node scripts/seo/verify-sitemap.mjs checks (2) against (3) over the built dist, and checks that
-# the Sitemap: line below uses the same origin as every <loc>. Run it after any route change.
+# the sitemap directive below uses the same origin as every <loc>. Run it after any route change.
 #
-# The Sitemap: line references a file that exists: sitemap.xml sits in this same directory
+# The sitemap directive references a file that exists: sitemap.xml sits in this same directory
 # (apps/web/public/), is copied verbatim into the build output, and is served at the site root.
 # Pointing a crawler at a sitemap URL that 404s is a dead reference (AGENTS.md section 1.6) that
 # Search Console reports as a fetch error.
