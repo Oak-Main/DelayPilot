@@ -153,7 +153,11 @@ jobs:
     # the ruleset names the old string, update it in the same change or the check silently stops
     # being required.
     name: Verify (11 of the 18 DIRECTIVE.md §23 checks)
-    runs-on: ubuntu-latest
+    # Pinned, not `ubuntu-latest`: on 2026-11-24 `ubuntu-latest` began resolving to Ubuntu 26.04 and
+    # `playwright install --with-deps chromium` exits 1 there ("Playwright does not support chromium
+    # on ubuntu26.04-x64") for the pinned @playwright/test 1.56.1. Move this only together with a
+    # Playwright version that supports the newer image.
+    runs-on: ubuntu-24.04
     # Measured locally: ~4 min of non-browser work plus ~109 s (a11y) and ~126 s (Playwright,
     # 2 workers), before the browser download. A hosted runner is slower than the machine those
     # were measured on, so the ceiling is generous on purpose: a timeout that fires on a slow

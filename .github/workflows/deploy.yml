@@ -124,7 +124,8 @@ jobs:
     name: Gate and deploy to Cloudflare
     needs: guard
     if: needs.guard.outputs.armed == 'true'
-    runs-on: ubuntu-latest
+    # Pinned to match ci.yml: the pinned Playwright 1.56.1 cannot install Chromium on Ubuntu 26.04.
+    runs-on: ubuntu-24.04
     environment: production
     # The ci.yml gate list (~30 min ceiling) plus the Worker upload and the post-deploy probe.
     timeout-minutes: 45
